@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  StatusBar,
-  Image,
-  Pressable,
-} from "react-native";
+import { View, Text, StyleSheet, StatusBar, Image } from "react-native";
 import React, { useState } from "react";
 import color from "@/constants/Colors";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -14,58 +7,86 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import iconsizes from "@/constants/IconSizes";
 import CustomButton from "@/components/customButton/CustomButton";
 import fontsizes from "@/constants/Fontsizes";
-import emailValidation from "@/utils/emailValidation";
 import validationMessages from "@/constants/validationMessages";
+import passwordValidation from "@/utils/passwordValidation";
 import CustomErrorText from "@/components/customErrorText/CustomErrorText";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import atuh from "@/api/auth";
+import { setToken } from "@/utils/asyncStorage";
 
-const ForgotPasword = () => {
-  const [formValue, setFormValue] = useState({ email: "" });
+const SignIn = () => {
+  const [formValue, setFormValue] = useState({ password: "", confirm: "" });
   const [formError, setFormError] = useState({
-    emailError: "",
+    passwordError: "",
+    confirmError: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+  const { email, otp } = useLocalSearchParams();
 
-  const handleEmail = (value: string) => {
+  const handlePassword = (value: string) => {
     setError("");
-    setFormValue((prev) => ({ ...prev, email: value }));
-    const validEmail = emailValidation(value);
-    if (!validEmail) {
+    setFormValue((prev) => ({ ...prev, password: value }));
+    const validPassword = passwordValidation(value);
+    if (validPassword) {
       setFormError((prev) => ({
         ...prev,
-        emailError: validationMessages.email.invalidEmail,
+        passwordError: validationMessages.password.length,
       }));
     } else {
       setFormError((prev) => ({
         ...prev,
-        emailError: "",
+        passwordError: "",
       }));
     }
   };
 
-  const handleSumbit = () => {
-    if (formValue?.email.trim() === "") {
+  const handleConfirmPassword = (value: string) => {
+    setError("");
+    setFormValue((prev) => ({ ...prev, confirm: value }));
+    if (value !== formValue?.password) {
       setFormError((prev) => ({
         ...prev,
-        emailError: validationMessages?.email?.required,
+        confirmError: "Confirm password does not match",
+      }));
+    } else {
+      setFormError((prev) => ({
+        ...prev,
+        confirmError: "",
       }));
     }
-
-    if (formError?.emailError == "" && formValue?.email !== "") {
+  };
+  const handleSumbit = () => {
+    if (formValue?.password.trim() === "") {
+      setFormError((prev) => ({
+        ...prev,
+        passwordError: validationMessages?.email?.required,
+      }));
+    }
+    if (formValue?.confirm.trim() === "") {
+      setFormError((prev) => ({
+        ...prev,
+        confirmError: "Confirm password is required",
+      }));
+    }
+    if (
+      formError?.passwordError === "" &&
+      formError?.confirmError == "" &&
+      formValue?.password !== "" &&
+      formValue?.confirm !== ""
+    ) {
       setLoading(true);
       atuh
-        .forgotPassword(formValue?.email)
+        .resetPassword(otp.toString(), email.toString(), formValue?.password)
         .then((res) => {
-          router.push({
-            pathname: "/(auth)/verify-otp",
-            params: { email: formValue.email },
+          setToken(res.data.data).then(() => {
+            console.log(res.data);
+            router.replace("/(auth)/sign-in");
           });
         })
         .catch((err) => {
-          setError("Request failed please try again");
+          setError(err.message);
         })
         .finally(() => setLoading(false));
     }
@@ -82,7 +103,7 @@ const ForgotPasword = () => {
           />
         </View>
         <Text style={{ fontSize: fontsizes.subTitle, fontWeight: "bold" }}>
-          Forgot Password
+          Reset Password
         </Text>
       </View>
       <View style={styles.formContainer}>
@@ -96,32 +117,47 @@ const ForgotPasword = () => {
           {error && <CustomErrorText error={error} />}
         </View>
         <View style={styles.inputWrapper}>
-          <Text style={{ fontSize: fontsizes.span, color: color.lightBlack }}>
-            Please confirm your email address where the opt will be sent
-          </Text>
           <CustomInput
-            secureTextEntry={false}
-            placeholder="Enter your Email"
-            onChangeText={handleEmail}
-            value={formValue?.email}
+            secureTextEntry={true}
+            placeholder="Enter your password"
+            onChangeText={handlePassword}
+            value={formValue?.password}
             icon={
               <MaterialIcons
-                name="email"
+                name="lock"
                 size={iconsizes.md}
                 color={color.lightBlack}
               />
             }
           />
-          {formError?.emailError && (
-            <CustomErrorText error={formError?.emailError} />
+          {formError?.passwordError && (
+            <CustomErrorText error={formError?.passwordError} />
+          )}
+        </View>
+        <View style={styles.inputWrapper}>
+          <CustomInput
+            secureTextEntry={true}
+            placeholder="Confirm your password"
+            onChangeText={handleConfirmPassword}
+            value={formValue?.confirm}
+            icon={
+              <MaterialIcons
+                name="lock"
+                size={iconsizes.md}
+                color={color.lightBlack}
+              />
+            }
+          />
+          {formError?.confirmError && (
+            <CustomErrorText error={formError?.confirmError} />
           )}
         </View>
 
-        <View style={[styles.inputWrapper, { marginTop: "25%" }]}>
+        <View style={[styles.inputWrapper]}>
           <CustomButton
             loading={loading}
             onPress={handleSumbit}
-            title="Request Password Reset"
+            title="Reset Password"
           />
         </View>
       </View>
@@ -130,7 +166,7 @@ const ForgotPasword = () => {
   );
 };
 
-export default ForgotPasword;
+export default SignIn;
 
 const styles = StyleSheet.create({
   container: {
@@ -157,7 +193,6 @@ const styles = StyleSheet.create({
     width: "70%",
     height: "70%",
   },
-
   formContainer: {
     flex: 1.5,
     paddingHorizontal: 20,

@@ -138,6 +138,7 @@ exports.verifyOTP = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, 
 //reset password
 exports.resetPassword = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { otp, email, password } = req.body;
+    console.log(req.body);
     try {
         if (!email) {
             throw new errorHandler_1.default(400, "Email is required");
@@ -148,7 +149,7 @@ exports.resetPassword = (0, asyncHandler_1.default)((req, res) => __awaiter(void
         if (password.length < 8) {
             throw new errorHandler_1.default(400, "Password length have at least 8 charecters");
         }
-        const user = (0, user_service_1.resetPasswordService)(otp, email, password);
+        const user = yield (0, user_service_1.resetPasswordService)(otp, email, password);
         if (!user) {
             throw new errorHandler_1.default(404, "User not found with this email");
         }

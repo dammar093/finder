@@ -94,6 +94,7 @@ export const resetPasswordService = async (otp: string, email: string, password:
         otp: ""
       }
     }, { new: true });
+
     return user;
   } catch (error) {
     throw new ApiError(500, "Something went wrong please try again")

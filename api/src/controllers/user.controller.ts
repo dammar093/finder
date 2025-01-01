@@ -135,7 +135,6 @@ export const verifyOTP = asyncHandler(async (req: Request, res: Response) => {
 //reset password
 export const resetPassword = asyncHandler(async (req: Request, res: Response) => {
   const { otp, email, password } = req.body;
-
   try {
     if (!email) {
       throw new ApiError(400, "Email is required")
@@ -146,8 +145,7 @@ export const resetPassword = asyncHandler(async (req: Request, res: Response) =>
     if (password.length < 8) {
       throw new ApiError(400, "Password length have at least 8 charecters")
     }
-
-    const user = resetPasswordService(otp, email, password);
+    const user = await resetPasswordService(otp, email, password);
     if (!user) {
       throw new ApiError(404, "User not found with this email")
     }

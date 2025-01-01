@@ -8,6 +8,7 @@ const AuthLayout = () => {
       <Stack.Screen name="sign-up" />
       <Stack.Screen name="forgot-password" />
       <Stack.Screen name="verify-otp" />
+      <Stack.Screen name="reset-password" />
     </Stack>
   );
 };
