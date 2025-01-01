@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyOTPService = exports.updateUserWithOTPService = exports.forgotPasswordService = exports.signInService = exports.createUserService = void 0;
+exports.resetPasswordService = exports.verifyOTPService = exports.updateUserWithOTPService = exports.forgotPasswordService = exports.signInService = exports.createUserService = void 0;
 const user_model_1 = __importDefault(require("../models/user.model"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const errorHandler_1 = __importDefault(require("../utils/errorHandler"));
@@ -97,3 +97,20 @@ const verifyOTPService = (email, otp) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.verifyOTPService = verifyOTPService;
+// reset password
+const resetPasswordService = (otp, email, password) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const hashedPassword = bcrypt_1.default.hashSync(password, 10);
+        const user = yield user_model_1.default.findOneAndUpdate({ email: email, otp: otp }, {
+            $set: {
+                password: hashedPassword,
+                otp: ""
+            }
+        }, { new: true });
+        return user;
+    }
+    catch (error) {
+        throw new errorHandler_1.default(500, "Something went wrong please try again");
+    }
+});
+exports.resetPasswordService = resetPasswordService;

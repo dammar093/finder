@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createUserService, forgotPasswordService, signInService, updateUserWithOTPService, verifyOTPService } from '../services/user.service';
+import { createUserService, forgotPasswordService, resetPasswordService, signInService, updateUserWithOTPService, verifyOTPService } from '../services/user.service';
 import asyncHandler from '../utils/asyncHandler';
 import jwt from "jsonwebtoken";
 import ApiError from '../utils/errorHandler';
@@ -131,3 +131,28 @@ export const verifyOTP = asyncHandler(async (req: Request, res: Response) => {
     throw new ApiError(500, "Something went wrong please try again")
   }
 });
+
+//reset password
+export const resetPassword = asyncHandler(async (req: Request, res: Response) => {
+  const { otp, email, password } = req.body;
+
+  try {
+    if (!email) {
+      throw new ApiError(400, "Email is required")
+    }
+    if (!password) {
+      throw new ApiError(400, "Password is required")
+    }
+    if (password.length < 8) {
+      throw new ApiError(400, "Password length have at least 8 charecters")
+    }
+
+    const user = resetPasswordService(otp, email, password);
+    if (!user) {
+      throw new ApiError(404, "User not found with this email")
+    }
+    return res.status(200).json(new ApiResponse(200, null, "Password reset successfully"))
+  } catch (error) {
+    throw new ApiError(500, "Something went wrong please try again")
+  }
+})

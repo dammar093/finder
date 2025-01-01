@@ -12,4 +12,5 @@ router.post("/sign-in", user_controller_1.signIn);
 router.get("/", auth_1.default, user_controller_1.loggedInUser);
 router.post("/forgot-password", user_controller_1.forgotPassword);
 router.post("/verify-otp", user_controller_1.verifyOTP);
+router.post("/reset-password", user_controller_1.resetPassword);
 exports.default = router;

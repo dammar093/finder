@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyOTP = exports.forgotPassword = exports.loggedInUser = exports.signIn = exports.createUser = void 0;
+exports.resetPassword = exports.verifyOTP = exports.forgotPassword = exports.loggedInUser = exports.signIn = exports.createUser = void 0;
 const user_service_1 = require("../services/user.service");
 const asyncHandler_1 = __importDefault(require("../utils/asyncHandler"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -130,6 +130,29 @@ exports.verifyOTP = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, 
             throw new errorHandler_1.default(400, "Invalid OTP");
         }
         return res.status(200).json(new apiResponse_1.default(200, null, "OTP verified successfully"));
+    }
+    catch (error) {
+        throw new errorHandler_1.default(500, "Something went wrong please try again");
+    }
+}));
+//reset password
+exports.resetPassword = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { otp, email, password } = req.body;
+    try {
+        if (!email) {
+            throw new errorHandler_1.default(400, "Email is required");
+        }
+        if (!password) {
+            throw new errorHandler_1.default(400, "Password is required");
+        }
+        if (password.length < 8) {
+            throw new errorHandler_1.default(400, "Password length have at least 8 charecters");
+        }
+        const user = (0, user_service_1.resetPasswordService)(otp, email, password);
+        if (!user) {
+            throw new errorHandler_1.default(404, "User not found with this email");
+        }
+        return res.status(200).json(new apiResponse_1.default(200, null, "Password reset successfully"));
     }
     catch (error) {
         throw new errorHandler_1.default(500, "Something went wrong please try again");

@@ -83,3 +83,19 @@ export const verifyOTPService = async (email: string, otp: string) => {
     throw new ApiError(500, "Something went wrong please try again")
   }
 }
+
+// reset password
+export const resetPasswordService = async (otp: string, email: string, password: string) => {
+  try {
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    const user = await User.findOneAndUpdate({ email: email, otp: otp }, {
+      $set: {
+        password: hashedPassword,
+        otp: ""
+      }
+    }, { new: true });
+    return user;
+  } catch (error) {
+    throw new ApiError(500, "Something went wrong please try again")
+  }
+}
