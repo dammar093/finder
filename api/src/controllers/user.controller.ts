@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createUserService, forgotPasswordService, signInService, updateUserWithOTPService } from '../services/user.service';
+import { createUserService, forgotPasswordService, signInService, updateUserWithOTPService, verifyOTPService } from '../services/user.service';
 import asyncHandler from '../utils/asyncHandler';
 import jwt from "jsonwebtoken";
 import ApiError from '../utils/errorHandler';
@@ -122,7 +122,7 @@ export const verifyOTP = asyncHandler(async (req: Request, res: Response) => {
     if (!otp) {
       throw new ApiError(400, "OTP is required")
     }
-    const user = await updateUserWithOTPService(email, otp);
+    const user = await verifyOTPService(email, otp);
     if (!user) {
       throw new ApiError(400, "Invalid OTP")
     }

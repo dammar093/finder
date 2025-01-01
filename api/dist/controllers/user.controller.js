@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.forgotPassword = exports.loggedInUser = exports.signIn = exports.createUser = void 0;
+exports.verifyOTP = exports.forgotPassword = exports.loggedInUser = exports.signIn = exports.createUser = void 0;
 const user_service_1 = require("../services/user.service");
 const asyncHandler_1 = __importDefault(require("../utils/asyncHandler"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -110,6 +110,26 @@ exports.forgotPassword = (0, asyncHandler_1.default)((req, res) => __awaiter(voi
             throw new errorHandler_1.default(400, "Email is required");
         }
         return res.status(200).json(new apiResponse_1.default(200, null, "Email sent successfully"));
+    }
+    catch (error) {
+        throw new errorHandler_1.default(500, "Something went wrong please try again");
+    }
+}));
+//verifying otp 
+exports.verifyOTP = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, otp } = req.body;
+    try {
+        if (!email) {
+            throw new errorHandler_1.default(400, "Email is required");
+        }
+        if (!otp) {
+            throw new errorHandler_1.default(400, "OTP is required");
+        }
+        const user = yield (0, user_service_1.verifyOTPService)(email, otp);
+        if (!user) {
+            throw new errorHandler_1.default(400, "Invalid OTP");
+        }
+        return res.status(200).json(new apiResponse_1.default(200, null, "OTP verified successfully"));
     }
     catch (error) {
         throw new errorHandler_1.default(500, "Something went wrong please try again");

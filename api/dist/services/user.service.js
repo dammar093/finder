@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUserWithOTPService = exports.forgotPasswordService = exports.signInService = exports.createUserService = void 0;
+exports.verifyOTPService = exports.updateUserWithOTPService = exports.forgotPasswordService = exports.signInService = exports.createUserService = void 0;
 const user_model_1 = __importDefault(require("../models/user.model"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const errorHandler_1 = __importDefault(require("../utils/errorHandler"));
@@ -83,3 +83,17 @@ const updateUserWithOTPService = (email, otp) => __awaiter(void 0, void 0, void 
     }
 });
 exports.updateUserWithOTPService = updateUserWithOTPService;
+// verify otp 
+const verifyOTPService = (email, otp) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield user_model_1.default.findOne({ email: email, otp: otp });
+        if (!user) {
+            throw new errorHandler_1.default(400, "Invalid otp");
+        }
+        return user;
+    }
+    catch (error) {
+        throw new errorHandler_1.default(500, "Something went wrong please try again");
+    }
+});
+exports.verifyOTPService = verifyOTPService;

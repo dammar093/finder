@@ -70,3 +70,16 @@ export const updateUserWithOTPService = async (email: string, otp: string) => {
     throw new ApiError(500, "Something went wrong please try again")
   }
 }
+
+// verify otp 
+export const verifyOTPService = async (email: string, otp: string) => {
+  try {
+    const user = await User.findOne({ email: email, otp: otp });
+    if (!user) {
+      throw new ApiError(400, "Invalid otp")
+    }
+    return user;
+  } catch (error) {
+    throw new ApiError(500, "Something went wrong please try again")
+  }
+}
