@@ -8,6 +8,8 @@ const TabLayout = () => {
     <Tabs
       screenOptions={{
         headerShown: false,
+        tabBarHideOnKeyboard: true,
+        tabBarActiveTintColor: "blue",
       }}
     >
       <Tabs.Screen
