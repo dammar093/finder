@@ -55,13 +55,14 @@ const VerifyOtp = () => {
         <View style={styles.logoWrapper}>
           <Image
             style={styles.image}
-            source={require("../../assets/images/logo-large.png")}
+            source={require("../../assets/images/otp.gif")}
+            width={100}
             resizeMode="contain"
+            onError={(error) =>
+              console.log("Image loading error: ", error.nativeEvent.error)
+            }
           />
         </View>
-        <Text style={{ fontSize: fontsizes.subTitle, fontWeight: "bold" }}>
-          Veryfy OTP
-        </Text>
       </View>
 
       <View style={styles.formContainer}>
@@ -116,15 +117,13 @@ const styles = StyleSheet.create({
   logoWrapper: {
     height: 150,
     width: 150,
-    borderRadius: "50%",
-    backgroundColor: color.lightGreen,
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
   },
   image: {
-    width: "70%",
-    height: "70%",
+    width: "100%",
+    height: "100%",
   },
   formContainer: {
     flex: 1.5,

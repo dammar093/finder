@@ -138,7 +138,6 @@ exports.verifyOTP = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, 
 //reset password
 exports.resetPassword = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { otp, email, password } = req.body;
-    console.log(req.body);
     try {
         if (!email) {
             throw new errorHandler_1.default(400, "Email is required");
