@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     width: "100%",
-    height: "20%",
+    height: "18%",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
