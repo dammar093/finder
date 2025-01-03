@@ -98,20 +98,21 @@ const Home = () => {
             <View style={{ padding: 10 }}>
               <Ionicons
                 name="notifications"
-                size={iconsizes.xl}
+                size={iconsizes.lg}
                 color={color.balck}
               />
               <View
                 style={{
                   position: "absolute",
                   top: 0,
+                  width: 25,
+                  height: 25,
                   right: 0,
-                  width: 30,
-                  height: 30,
                   borderRadius: 50,
                   backgroundColor: color.red,
                   justifyContent: "center",
                   alignItems: "center",
+                  padding: 2,
                 }}
               >
                 <Text

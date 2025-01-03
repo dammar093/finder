@@ -5,7 +5,8 @@ const color = {
   garyWhite: "#eee",
   lightGreen: "#ABE936",
   blue: "#024CAA",
-  red: "red"
+  red: "red",
+  primary: "#F22B55"
 }
 
 export default color;
