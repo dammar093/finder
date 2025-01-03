@@ -199,7 +199,7 @@ const Home = () => {
                   })}
                   <Text
                     style={{
-                      color: color.lightBlack,
+                      color: i === index ? color.primary : color.lightBlack,
                       fontSize: fontsizes.span,
                     }}
                   >
