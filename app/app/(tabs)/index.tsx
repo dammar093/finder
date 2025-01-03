@@ -6,6 +6,8 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  Pressable,
+  ScrollView,
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -14,7 +16,65 @@ import Feather from "@expo/vector-icons/Feather";
 import iconsizes from "@/constants/IconSizes";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import fontsizes from "@/constants/Fontsizes";
-
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import AntDesign from "@expo/vector-icons/AntDesign";
+interface Categories {
+  id: string;
+  name: string;
+  icon: React.ReactNode;
+}
+const categories: Categories[] = [
+  {
+    id: "1",
+    name: "Room",
+    icon: <Ionicons name="home" size={iconsizes.lg} color={color.lightBlack} />,
+  },
+  {
+    id: "2",
+    name: "Land",
+    icon: (
+      <MaterialCommunityIcons
+        name="island"
+        size={iconsizes.lg}
+        color={color.lightBlack}
+      />
+    ),
+  },
+  {
+    id: "3",
+    name: "Car",
+    icon: <AntDesign name="car" size={iconsizes.lg} color={color.lightBlack} />,
+  },
+  {
+    id: "4",
+    name: "Bike",
+    icon: (
+      <MaterialCommunityIcons
+        name="motorbike-electric"
+        size={iconsizes.lg}
+        color={color.lightBlack}
+      />
+    ),
+  },
+  {
+    id: "5",
+    name: "Mobile",
+    icon: (
+      <AntDesign name="mobile1" size={iconsizes.lg} color={color.lightBlack} />
+    ),
+  },
+  {
+    id: "6",
+    name: "Animal",
+    icon: (
+      <MaterialCommunityIcons
+        name="cow"
+        size={iconsizes.lg}
+        color={color.lightBlack}
+      />
+    ),
+  },
+];
 const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
@@ -66,6 +126,38 @@ const Home = () => {
               </View>
             </View>
           </View>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              height: 70,
+              gap: 45,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            {categories.map((category) => (
+              <Pressable key={category?.id}>
+                <View
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                  }}
+                >
+                  {category.icon}
+                  <Text
+                    style={{
+                      color: color.lightBlack,
+                      fontSize: fontsizes.span,
+                    }}
+                  >
+                    {category.name}
+                  </Text>
+                </View>
+              </Pressable>
+            ))}
+          </ScrollView>
         </View>
         <StatusBar barStyle="dark-content" />
       </KeyboardAvoidingView>
@@ -82,7 +174,7 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     width: "100%",
-    height: 200,
+    height: "20%",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -92,14 +184,16 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 0.5,
     boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.1)",
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    gap: 10,
   },
   inputWrapper: {
     width: "80%",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
-    height: 55,
+    height: "80%",
     flexDirection: "row",
     paddingHorizontal: 5,
     shadowColor: "#000",
