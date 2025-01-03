@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { KeyboardAvoidingView, StyleSheet, Keyboard, View } from "react-native";
 import { useLinkBuilder, useTheme } from "@react-navigation/native";
 import { Text, PlatformPressable } from "@react-navigation/elements";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
@@ -7,11 +7,33 @@ import Feather from "@expo/vector-icons/Feather";
 import iconsizes from "@/constants/IconSizes";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome5";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import fontsizes from "@/constants/Fontsizes";
 
 function MyTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const { buildHref } = useLinkBuilder();
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardVisible(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardVisible(false);
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
   const icons: { [key: string]: JSX.Element } = {
     index: <Feather name="home" size={iconsizes.lg} color={color.lightBlack} />,
     wishlist: (
@@ -35,8 +57,13 @@ function MyTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
       <AntDesign name="user" size={iconsizes.lg} color={color.lightBlack} />
     ),
   };
+
+  if (isKeyboardVisible) {
+    return null;
+  }
+
   return (
-    <View style={styles.tabBar}>
+    <KeyboardAvoidingView style={styles.tabBar}>
       {state.routes.map((route: any, index: number) => {
         const { options } = descriptors[route.key];
         const label =
@@ -93,7 +120,7 @@ function MyTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
           </PlatformPressable>
         );
       })}
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 export default MyTabBar;

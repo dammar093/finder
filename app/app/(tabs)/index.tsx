@@ -8,6 +8,8 @@ import {
   Platform,
   Pressable,
   ScrollView,
+  FlatList,
+  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -18,6 +20,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import fontsizes from "@/constants/Fontsizes";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import PostCard from "@/components/postCard/PostCard";
 interface Categories {
   id: string;
   name: string;
@@ -75,7 +78,52 @@ const categories: Categories[] = [
     ),
   },
 ];
+export interface Posts {
+  id: string;
+  title: string;
+  description: string;
+  images: string[];
+  location: string;
+  price: number;
+}
+
+const posts: Posts[] = [
+  {
+    id: "1",
+    title: "Room",
+    description: "Room for rent in Kathmandu",
+    images: [
+      "https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg",
+      "https://www.hotelcontractbeds.co.uk/media/3183/hotel-room.jpg",
+    ],
+    location: "Kathmandu, Koteshwor",
+    price: 10000,
+  },
+  {
+    id: "2",
+    title: "Room",
+    description: "Room for rent in Kathmandu",
+    images: [
+      "https://www.thespruce.com/thmb/iMt63n8NGCojUETr6-T8oj-5-ns=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/PAinteriors-7-cafe9c2bd6be4823b9345e591e4f367f.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDOwKx7dPv6Q8WkA3ZmEnDFab0hNV1Q35MGQ&s",
+    ],
+    location: "Latitpur, Balkumari",
+    price: 12000,
+  },
+  {
+    id: "3",
+    title: "Room",
+    description: "Room for rent in Kathmandu",
+    images: [
+      "https://gladstonehouse.agencydominion.net/uploads/2024/07/Book-Direct-rect-2.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUowi73UzREwbLtZw0Q26rkbfwj40IGy3IJg&s",
+    ],
+    location: "Kathmandu, New Baneshwor",
+    price: 20000,
+  },
+];
 const Home = () => {
+  const [index, setIndex] = React.useState(0);
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -137,8 +185,8 @@ const Home = () => {
               alignItems: "center",
             }}
           >
-            {categories.map((category) => (
-              <Pressable key={category?.id}>
+            {categories.map((category, i) => (
+              <TouchableOpacity onPress={() => setIndex(i)} key={category?.id}>
                 <View
                   style={{
                     justifyContent: "center",
@@ -146,7 +194,9 @@ const Home = () => {
                     height: "100%",
                   }}
                 >
-                  {category.icon}
+                  {React.cloneElement(category.icon as React.ReactElement, {
+                    color: i === index ? color.primary : color.lightBlack,
+                  })}
                   <Text
                     style={{
                       color: color.lightBlack,
@@ -156,9 +206,23 @@ const Home = () => {
                     {category.name}
                   </Text>
                 </View>
-              </Pressable>
+              </TouchableOpacity>
             ))}
           </ScrollView>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            paddingHorizontal: 10,
+            marginBottom: 35,
+          }}
+        >
+          <FlatList
+            data={posts}
+            renderItem={({ item }) => <PostCard {...item} key={item.id} />}
+            keyExtractor={(item) => item.id}
+            contentContainerStyle={{ paddingBottom: 65, gap: 20 }}
+          />
         </View>
         <StatusBar barStyle="dark-content" />
       </KeyboardAvoidingView>
