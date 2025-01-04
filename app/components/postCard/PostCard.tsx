@@ -14,16 +14,23 @@ import color from "@/constants/Colors";
 import fontsizes from "@/constants/Fontsizes";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import iconsizes from "@/constants/IconSizes";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
+import { togglePost } from "@/redux/slices/wishlist";
 
 const PostCard = (props: Posts) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const dispatch = useDispatch<AppDispatch>();
+  const wishlist = useSelector((state: RootState) => state.wishlist.posts);
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const contentOffsetX = event.nativeEvent.contentOffset.x;
     const index = Math.floor(contentOffsetX / 372);
     setCurrentIndex(index);
   };
-
+  const handleToggleWishlist = (id: string) => {
+    dispatch(togglePost(id));
+  };
   return (
     <View style={styles.postCard}>
       <View style={{ width: "100%", height: 300, position: "relative" }}>
@@ -36,8 +43,7 @@ const PostCard = (props: Posts) => {
           contentContainerStyle={{
             height: 300,
             flexDirection: "row",
-            paddingRight: 20,
-            gap: 5,
+            gap: 4,
             position: "relative",
           }}
         >
@@ -123,8 +129,13 @@ const PostCard = (props: Posts) => {
           borderRadius: 50,
           opacity: 0.8,
         }}
+        onPress={() => handleToggleWishlist(props?.id)}
       >
-        <AntDesign name="heart" size={iconsizes.md} color={color.lightBlack} />
+        <AntDesign
+          name="heart"
+          size={iconsizes.md}
+          color={wishlist?.includes(props?.id) ? color.primary : color.balck}
+        />
       </Pressable>
     </View>
   );

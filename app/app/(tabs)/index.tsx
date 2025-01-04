@@ -222,6 +222,7 @@ const Home = () => {
             renderItem={({ item }) => <PostCard {...item} key={item.id} />}
             keyExtractor={(item) => item.id}
             contentContainerStyle={{ paddingBottom: 65, gap: 20 }}
+            showsVerticalScrollIndicator={false}
           />
         </View>
         <StatusBar barStyle="dark-content" />
