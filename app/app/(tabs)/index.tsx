@@ -93,19 +93,22 @@ export interface Posts {
   location: string;
   price: number;
   user: User;
+  sevices: string[];
 }
 
 export const posts: Posts[] = [
   {
     id: "1",
     title: "Room",
-    description: "Room for rent in Kathmandu",
+    description:
+      "We always love to extend a pleasurable stay and will be more than happy to show you around the area, for which tours & transportation can be arranged. We can also help to customise your trip based on your plan. Extra meals along with additional services like Laundry, Dry Cleaning, Photocopying, and Grocery deliveries can be arranged for on request. Customers are requested to respect the property and the rules of the BnB, the hotel staff will always be at your service. Thank You!",
     images: [
       "https://static01.nyt.com/images/2019/03/24/travel/24trending-shophotels1/24trending-shophotels1-superJumbo.jpg",
       "https://www.hotelcontractbeds.co.uk/media/3183/hotel-room.jpg",
     ],
     location: "Kathmandu, Koteshwor",
     price: 10000,
+    sevices: ["Free Wifi", "Free Water", "Free Electricity"],
     user: {
       id: "1",
       fullName: "Dammar Singh Rana",
@@ -118,13 +121,15 @@ export const posts: Posts[] = [
   {
     id: "2",
     title: "Salon de Kathmandu B&B - Room",
-    description: "Room for rent in Kathmandu",
+    description:
+      "Stay at safe and clean place during your stay in Kathmandu! Lazimpat is popular residential area for both foreign and wealthy local people because of its very clean, convenient and safe environment. The city center, Durbar Marg and Thamel, is all located in walking distance. Convenient location, safe area, super clean house with beautiful garden and good foods, any reason to hesitate? :)",
     images: [
       "https://www.thespruce.com/thmb/iMt63n8NGCojUETr6-T8oj-5-ns=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/PAinteriors-7-cafe9c2bd6be4823b9345e591e4f367f.jpg",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDOwKx7dPv6Q8WkA3ZmEnDFab0hNV1Q35MGQ&s",
     ],
     location: "Latitpur, Balkumari",
     price: 12000,
+    sevices: ["Free Wifi", "Free Water", "Free Electricity"],
     user: {
       id: "2",
       fullName: "Deepak Raj Pandey",
@@ -144,6 +149,7 @@ export const posts: Posts[] = [
     ],
     location: "Kathmandu, New Baneshwor",
     price: 20000,
+    sevices: ["Free Wifi", "Free Water", "Free Electricity"],
     user: {
       id: "3",
       fullName: "Birendra Singh Rana",

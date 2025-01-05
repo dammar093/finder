@@ -12,11 +12,14 @@ import { posts } from "../(tabs)";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import iconsizes from "@/constants/IconSizes";
 import { useDispatch, useSelector } from "react-redux";
+import MapView, { Marker } from "react-native-maps";
 import { AppDispatch, RootState } from "@/redux/store";
 import { togglePost } from "@/redux/slices/wishlist";
 import color from "@/constants/Colors";
 import fontsizes from "@/constants/Fontsizes";
 import Devider from "@/components/divider/Devider";
+import Feather from "@expo/vector-icons/Feather";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Post = () => {
   const { id } = useLocalSearchParams();
@@ -102,13 +105,22 @@ const Post = () => {
         </Text>
       </View>
       <Devider />
-      <View style={{ width: "100%", paddingVertical: 10 }}>
+      <View
+        style={{
+          width: "100%",
+          paddingVertical: 10,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <View
           style={{
             paddingVertical: 10,
             flexDirection: "row",
             alignItems: "center",
             gap: 10,
+            width: "75%",
           }}
         >
           <View style={styles.profileContainer}>
@@ -131,12 +143,117 @@ const Post = () => {
               {post?.user?.fullName}
             </Text>
             <Text style={{ fontSize: fontsizes.span, color: color.lightBlack }}>
-              Superhost ● {post?.user?.year} Years hosting
+              Superhost ● {post?.user?.year} years hosting
             </Text>
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 2 }}
+            >
+              <AntDesign name="star" color={color.balck} size={16} />
+              <Text
+                style={{ fontSize: fontsizes.paragraph, fontWeight: "bold" }}
+              >
+                5
+              </Text>
+            </View>
           </View>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 10,
+          }}
+        >
+          <Ionicons
+            name="call-outline"
+            color={color.balck}
+            size={iconsizes.xl}
+          />
+          <Feather
+            name="message-circle"
+            color={color.balck}
+            size={iconsizes.xl}
+          />
         </View>
       </View>
       <Devider />
+      <View style={{ gap: 5, paddingVertical: 10 }}>
+        <Text
+          style={{
+            fontSize: fontsizes.paragraph,
+            fontWeight: "bold",
+            color: color.balck,
+          }}
+        >
+          Services:
+        </Text>
+        <View>
+          {post?.sevices?.map((service) => (
+            <Text
+              style={{
+                fontSize: fontsizes.span,
+                fontWeight: "semibold",
+                color: color.lightBlack,
+              }}
+              key={service}
+            >
+              ● {service}
+            </Text>
+          ))}
+        </View>
+      </View>
+      <Devider />
+
+      <View style={{ marginVertical: 10 }}>
+        <Text
+          style={{
+            fontSize: fontsizes.paragraph,
+            color: color.balck,
+            textAlign: "justify",
+          }}
+        >
+          {post?.description}
+        </Text>
+      </View>
+      <View>
+        <Text
+          style={{
+            fontSize: fontsizes.subTitle,
+            fontWeight: "semibold",
+            color: color.balck,
+            marginVertical: 10,
+          }}
+        >
+          Find me by the location
+        </Text>
+        <View
+          style={{
+            height: 450,
+            width: "100%",
+            paddingBottom: 20,
+            borderRadius: 10,
+          }}
+        >
+          <MapView
+            style={{ flex: 1, borderRadius: 20 }}
+            initialRegion={{
+              latitude: 27.679976726701263,
+              longitude: 85.34573817370716,
+              latitudeDelta: 0.01844,
+              longitudeDelta: 0.00842,
+            }}
+          >
+            <Marker
+              coordinate={{
+                latitude: 27.679976726701263,
+                longitude: 85.34573817370716,
+              }}
+              title="Marvel Boys Hostel"
+            />
+          </MapView>
+        </View>
+      </View>
     </ScrollView>
   );
 };
@@ -147,7 +264,7 @@ const styles = StyleSheet.create({
   cotainer: {
     flex: 1,
     paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingTop: 8,
   },
   profileContainer: {
     width: 50,

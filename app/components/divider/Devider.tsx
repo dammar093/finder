@@ -9,7 +9,7 @@ const Devider = () => {
         width: "100%",
         height: 1,
         backgroundColor: "#4C585B",
-        opacity: 0.2,
+        opacity: 0.4,
       }}
     ></View>
   );
