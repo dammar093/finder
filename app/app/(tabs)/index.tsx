@@ -87,7 +87,7 @@ export interface Posts {
   price: number;
 }
 
-const posts: Posts[] = [
+export const posts: Posts[] = [
   {
     id: "1",
     title: "Room",

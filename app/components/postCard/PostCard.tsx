@@ -17,12 +17,14 @@ import iconsizes from "@/constants/IconSizes";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { togglePost } from "@/redux/slices/wishlist";
+import { Link } from "expo-router";
 
 const PostCard = (props: Posts) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const dispatch = useDispatch<AppDispatch>();
   const wishlist = useSelector((state: RootState) => state.wishlist.posts);
 
+  //function to handle scroll image
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const contentOffsetX = event.nativeEvent.contentOffset.x;
     const index = Math.floor(contentOffsetX / 372);
@@ -43,12 +45,15 @@ const PostCard = (props: Posts) => {
           contentContainerStyle={{
             height: 300,
             flexDirection: "row",
-            gap: 4,
             position: "relative",
           }}
         >
           {props?.images.map((image, index) => (
-            <View
+            <Link
+              href={{
+                pathname: "/(post)/[id]",
+                params: { id: props?.id },
+              }}
               key={index}
               style={{
                 height: 300,
@@ -62,7 +67,7 @@ const PostCard = (props: Posts) => {
                 style={{ width: "100%", height: "100%", borderRadius: 10 }}
                 resizeMode="cover"
               />
-            </View>
+            </Link>
           ))}
         </ScrollView>
         <View style={styles.dotsContainer}>
@@ -124,7 +129,6 @@ const PostCard = (props: Posts) => {
           position: "absolute",
           top: 10,
           right: 10,
-          backgroundColor: color.white,
           padding: 5,
           borderRadius: 50,
           opacity: 0.8,
