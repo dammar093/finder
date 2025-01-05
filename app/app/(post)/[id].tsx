@@ -125,7 +125,7 @@ const Post = () => {
         >
           <View style={styles.profileContainer}>
             <Image
-              style={{ width: 50, height: 50 }}
+              style={{ width: 70, height: 70 }}
               source={{
                 uri: post?.user?.profile,
               }}
@@ -267,8 +267,8 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
   profileContainer: {
-    width: 50,
-    height: 50,
+    width: 70,
+    height: 70,
     borderRadius: "50%",
     overflow: "hidden",
   },
