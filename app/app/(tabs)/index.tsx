@@ -94,12 +94,14 @@ export interface Posts {
   price: number;
   user: User;
   sevices: string[];
+  latitude: number;
+  longitude: number;
 }
 
 export const posts: Posts[] = [
   {
     id: "1",
-    title: "Room",
+    title: "Marvel Boys Hostel",
     description:
       "We always love to extend a pleasurable stay and will be more than happy to show you around the area, for which tours & transportation can be arranged. We can also help to customise your trip based on your plan. Extra meals along with additional services like Laundry, Dry Cleaning, Photocopying, and Grocery deliveries can be arranged for on request. Customers are requested to respect the property and the rules of the BnB, the hotel staff will always be at your service. Thank You!",
     images: [
@@ -107,6 +109,8 @@ export const posts: Posts[] = [
       "https://www.hotelcontractbeds.co.uk/media/3183/hotel-room.jpg",
     ],
     location: "Kathmandu, Koteshwor",
+    latitude: 27.679976726701263,
+    longitude: 85.34573817370716,
     price: 10000,
     sevices: ["Free Wifi", "Free Water", "Free Electricity"],
     user: {
@@ -128,6 +132,8 @@ export const posts: Posts[] = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDOwKx7dPv6Q8WkA3ZmEnDFab0hNV1Q35MGQ&s",
     ],
     location: "Latitpur, Balkumari",
+    latitude: 27.679976726701263,
+    longitude: 85.34573817370716,
     price: 12000,
     sevices: ["Free Wifi", "Free Water", "Free Electricity"],
     user: {
@@ -148,6 +154,8 @@ export const posts: Posts[] = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUowi73UzREwbLtZw0Q26rkbfwj40IGy3IJg&s",
     ],
     location: "Kathmandu, New Baneshwor",
+    latitude: 27.679976726701263,
+    longitude: 85.34573817370716,
     price: 20000,
     sevices: ["Free Wifi", "Free Water", "Free Electricity"],
     user: {

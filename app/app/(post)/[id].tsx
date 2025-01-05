@@ -159,21 +159,21 @@ const Post = () => {
         </View>
         <View
           style={{
-            flex: 1,
+            width: "16%",
             flexDirection: "row",
             alignItems: "center",
-            gap: 10,
+            gap: 3,
           }}
         >
           <Ionicons
             name="call-outline"
             color={color.balck}
-            size={iconsizes.xl}
+            size={iconsizes.lg}
           />
           <Feather
             name="message-circle"
             color={color.balck}
-            size={iconsizes.xl}
+            size={iconsizes.lg}
           />
         </View>
       </View>
@@ -238,18 +238,18 @@ const Post = () => {
           <MapView
             style={{ flex: 1, borderRadius: 20 }}
             initialRegion={{
-              latitude: 27.679976726701263,
-              longitude: 85.34573817370716,
-              latitudeDelta: 0.01844,
-              longitudeDelta: 0.00842,
+              latitude: post?.latitude!,
+              longitude: post?.longitude!,
+              latitudeDelta: 0.005,
+              longitudeDelta: 0.005,
             }}
           >
             <Marker
               coordinate={{
-                latitude: 27.679976726701263,
-                longitude: 85.34573817370716,
+                latitude: post?.latitude!,
+                longitude: post?.longitude!,
               }}
-              title="Marvel Boys Hostel"
+              title={post?.title}
             />
           </MapView>
         </View>
@@ -265,6 +265,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 10,
     paddingTop: 8,
+    backgroundColor: color.white,
   },
   profileContainer: {
     width: 70,
