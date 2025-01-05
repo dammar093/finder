@@ -92,27 +92,18 @@ const PostCard = (props: Posts) => {
           padding: 10,
         }}
       >
-        <View style={{ flex: 1 }}>
-          <Text
-            style={{
-              color: color.primary,
-              fontSize: fontsizes.paragraph,
-              fontWeight: "bold",
-            }}
-          >
-            {props?.title}
-          </Text>
+        <View style={{ flex: 2 }}>
           <Text
             style={{
               color: color.lightBlack,
               fontSize: fontsizes.paragraph,
-              fontWeight: "semibold",
+              fontWeight: "bold",
             }}
           >
             {props?.location}
           </Text>
         </View>
-        <View style={{ flex: 1, alignItems: "flex-end" }}>
+        <View style={{ flex: 1, alignItems: "flex-end", flexDirection: "row" }}>
           <Text
             style={{
               color: color.balck,
@@ -120,8 +111,9 @@ const PostCard = (props: Posts) => {
               fontWeight: "bold",
             }}
           >
-            Rs. {props?.price}/Month
+            Rs. {props?.price}
           </Text>
+          <Text>/Month</Text>
         </View>
       </View>
       <Pressable

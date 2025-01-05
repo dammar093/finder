@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { togglePost } from "@/redux/slices/wishlist";
 import color from "@/constants/Colors";
+import fontsizes from "@/constants/Fontsizes";
+import Devider from "@/components/divider/Devider";
 
 const Post = () => {
   const { id } = useLocalSearchParams();
@@ -79,6 +81,62 @@ const Post = () => {
           />
         </Pressable>
       </View>
+      <View style={{ marginVertical: 10 }}>
+        <Text
+          style={{
+            fontSize: fontsizes.subTitle,
+            fontWeight: "bold",
+            color: color.balck,
+          }}
+        >
+          {post?.title}
+        </Text>
+        <Text
+          style={{
+            color: color.balck,
+            fontSize: fontsizes.paragraph,
+            fontWeight: "semibold",
+          }}
+        >
+          {post?.location}
+        </Text>
+      </View>
+      <Devider />
+      <View style={{ width: "100%", paddingVertical: 10 }}>
+        <View
+          style={{
+            paddingVertical: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 10,
+          }}
+        >
+          <View style={styles.profileContainer}>
+            <Image
+              style={{ width: 50, height: 50 }}
+              source={{
+                uri: post?.user?.profile,
+              }}
+              resizeMode="cover"
+            />
+          </View>
+          <View>
+            <Text
+              style={{
+                fontSize: fontsizes.paragraph,
+                fontWeight: "bold",
+                color: color.balck,
+              }}
+            >
+              {post?.user?.fullName}
+            </Text>
+            <Text style={{ fontSize: fontsizes.span, color: color.lightBlack }}>
+              Superhost ● {post?.user?.year} Years hosting
+            </Text>
+          </View>
+        </View>
+      </View>
+      <Devider />
     </ScrollView>
   );
 };
@@ -90,5 +148,11 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 10,
     paddingVertical: 5,
+  },
+  profileContainer: {
+    width: 50,
+    height: 50,
+    borderRadius: "50%",
+    overflow: "hidden",
   },
 });

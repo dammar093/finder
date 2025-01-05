@@ -78,6 +78,13 @@ const categories: Categories[] = [
     ),
   },
 ];
+interface User {
+  fullName: string;
+  role: string;
+  id: string;
+  profile: string;
+  year: number;
+}
 export interface Posts {
   id: string;
   title: string;
@@ -85,6 +92,7 @@ export interface Posts {
   images: string[];
   location: string;
   price: number;
+  user: User;
 }
 
 export const posts: Posts[] = [
@@ -98,10 +106,18 @@ export const posts: Posts[] = [
     ],
     location: "Kathmandu, Koteshwor",
     price: 10000,
+    user: {
+      id: "1",
+      fullName: "Dammar Singh Rana",
+      role: "user",
+      profile:
+        "https://pics.craiyon.com/2023-11-26/oMNPpACzTtO5OVERUZwh3Q.webp",
+      year: 10,
+    },
   },
   {
     id: "2",
-    title: "Room",
+    title: "Salon de Kathmandu B&B - Room",
     description: "Room for rent in Kathmandu",
     images: [
       "https://www.thespruce.com/thmb/iMt63n8NGCojUETr6-T8oj-5-ns=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/PAinteriors-7-cafe9c2bd6be4823b9345e591e4f367f.jpg",
@@ -109,6 +125,14 @@ export const posts: Posts[] = [
     ],
     location: "Latitpur, Balkumari",
     price: 12000,
+    user: {
+      id: "2",
+      fullName: "Deepak Raj Pandey",
+      role: "user",
+      profile:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTacBEOxzVt2idhxO0WXyuPKzHanDF8qupFBJSWQAuy0dk324BY92xqKOgh17AdWsx4-tk&usqp=CAU",
+      year: 8,
+    },
   },
   {
     id: "3",
@@ -120,6 +144,14 @@ export const posts: Posts[] = [
     ],
     location: "Kathmandu, New Baneshwor",
     price: 20000,
+    user: {
+      id: "3",
+      fullName: "Birendra Singh Rana",
+      role: "user",
+      profile:
+        "https://pics.craiyon.com/2024-07-09/HoDtX3s0SQefffp4FG5-3w.webp",
+      year: 5,
+    },
   },
 ];
 const Home = () => {
