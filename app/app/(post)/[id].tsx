@@ -240,8 +240,8 @@ const Post = () => {
             initialRegion={{
               latitude: post?.latitude!,
               longitude: post?.longitude!,
-              latitudeDelta: 0.005,
-              longitudeDelta: 0.005,
+              latitudeDelta: 0.0045,
+              longitudeDelta: 0.0045,
             }}
           >
             <Marker
