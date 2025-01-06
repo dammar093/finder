@@ -78,7 +78,7 @@ const categories: Categories[] = [
     ),
   },
 ];
-interface User {
+export interface User {
   fullName: string;
   role: string;
   id: string;

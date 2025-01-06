@@ -19,8 +19,7 @@ import { togglePost } from "@/redux/slices/wishlist";
 import color from "@/constants/Colors";
 import fontsizes from "@/constants/Fontsizes";
 import Devider from "@/components/divider/Devider";
-import Feather from "@expo/vector-icons/Feather";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 const Post = () => {
   const { id } = useLocalSearchParams();
@@ -152,7 +151,7 @@ const Post = () => {
               <Text
                 style={{ fontSize: fontsizes.span, color: color.lightBlack }}
               >
-                Superhost ● {post?.user?.year} years hosting
+                Host ● {post?.user?.year} years hosting
               </Text>
               <View
                 style={{ flexDirection: "row", alignItems: "center", gap: 2 }}
@@ -171,8 +170,7 @@ const Post = () => {
           style={{
             width: "16%",
             flexDirection: "row",
-            alignItems: "center",
-            gap: 3,
+            justifyContent: "flex-end",
           }}
         >
           <Pressable
@@ -182,23 +180,10 @@ const Post = () => {
               )
             }
           >
-            <Ionicons
-              name="call-outline"
+            <FontAwesome5
+              name="whatsapp"
               color={color.balck}
-              size={iconsizes.lg}
-            />
-          </Pressable>
-          <Pressable
-            onPress={() =>
-              Linking.openURL(
-                `whatsapp://send?phone=${post?.user?.phoneNumber}`
-              )
-            }
-          >
-            <Feather
-              name="message-circle"
-              color={color.balck}
-              size={iconsizes.lg}
+              size={iconsizes.xl}
             />
           </Pressable>
         </View>
