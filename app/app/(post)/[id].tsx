@@ -5,9 +5,10 @@ import {
   Image,
   StyleSheet,
   Pressable,
+  Linking,
 } from "react-native";
 import React from "react";
-import { useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { posts } from "../(tabs)";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import iconsizes from "@/constants/IconSizes";
@@ -114,49 +115,58 @@ const Post = () => {
           alignItems: "center",
         }}
       >
-        <View
-          style={{
-            paddingVertical: 10,
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 10,
-            width: "75%",
+        <Link
+          href={{
+            pathname: "/(user)/[id]",
+            params: { id: post?.user?.id! },
           }}
         >
-          <View style={styles.profileContainer}>
-            <Image
-              style={{ width: 70, height: 70 }}
-              source={{
-                uri: post?.user?.profile,
-              }}
-              resizeMode="cover"
-            />
-          </View>
-          <View>
-            <Text
-              style={{
-                fontSize: fontsizes.paragraph,
-                fontWeight: "bold",
-                color: color.balck,
-              }}
-            >
-              {post?.user?.fullName}
-            </Text>
-            <Text style={{ fontSize: fontsizes.span, color: color.lightBlack }}>
-              Superhost ● {post?.user?.year} years hosting
-            </Text>
-            <View
-              style={{ flexDirection: "row", alignItems: "center", gap: 2 }}
-            >
-              <AntDesign name="star" color={color.balck} size={16} />
+          <View
+            style={{
+              paddingVertical: 10,
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 10,
+              width: "75%",
+            }}
+          >
+            <View style={styles.profileContainer}>
+              <Image
+                style={{ width: 70, height: 70 }}
+                source={{
+                  uri: post?.user?.profile,
+                }}
+                resizeMode="cover"
+              />
+            </View>
+            <View>
               <Text
-                style={{ fontSize: fontsizes.paragraph, fontWeight: "bold" }}
+                style={{
+                  fontSize: fontsizes.paragraph,
+                  fontWeight: "bold",
+                  color: color.balck,
+                }}
               >
-                5
+                {post?.user?.fullName}
               </Text>
+              <Text
+                style={{ fontSize: fontsizes.span, color: color.lightBlack }}
+              >
+                Superhost ● {post?.user?.year} years hosting
+              </Text>
+              <View
+                style={{ flexDirection: "row", alignItems: "center", gap: 2 }}
+              >
+                <AntDesign name="star" color={color.balck} size={16} />
+                <Text
+                  style={{ fontSize: fontsizes.paragraph, fontWeight: "bold" }}
+                >
+                  5
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
+        </Link>
         <View
           style={{
             width: "16%",
@@ -165,16 +175,32 @@ const Post = () => {
             gap: 3,
           }}
         >
-          <Ionicons
-            name="call-outline"
-            color={color.balck}
-            size={iconsizes.lg}
-          />
-          <Feather
-            name="message-circle"
-            color={color.balck}
-            size={iconsizes.lg}
-          />
+          <Pressable
+            onPress={() =>
+              Linking.openURL(
+                `whatsapp://send?phone=${post?.user?.phoneNumber}`
+              )
+            }
+          >
+            <Ionicons
+              name="call-outline"
+              color={color.balck}
+              size={iconsizes.lg}
+            />
+          </Pressable>
+          <Pressable
+            onPress={() =>
+              Linking.openURL(
+                `whatsapp://send?phone=${post?.user?.phoneNumber}`
+              )
+            }
+          >
+            <Feather
+              name="message-circle"
+              color={color.balck}
+              size={iconsizes.lg}
+            />
+          </Pressable>
         </View>
       </View>
       <Devider />

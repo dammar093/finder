@@ -84,6 +84,7 @@ interface User {
   id: string;
   profile: string;
   year: number;
+  phoneNumber: string;
 }
 export interface Posts {
   id: string;
@@ -120,6 +121,7 @@ export const posts: Posts[] = [
       profile:
         "https://pics.craiyon.com/2023-11-26/oMNPpACzTtO5OVERUZwh3Q.webp",
       year: 10,
+      phoneNumber: "+9779824659193",
     },
   },
   {
@@ -143,6 +145,7 @@ export const posts: Posts[] = [
       profile:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTacBEOxzVt2idhxO0WXyuPKzHanDF8qupFBJSWQAuy0dk324BY92xqKOgh17AdWsx4-tk&usqp=CAU",
       year: 8,
+      phoneNumber: "+9779862460349",
     },
   },
   {
@@ -165,6 +168,7 @@ export const posts: Posts[] = [
       profile:
         "https://pics.craiyon.com/2024-07-09/HoDtX3s0SQefffp4FG5-3w.webp",
       year: 5,
+      phoneNumber: "+9779824659193",
     },
   },
 ];
