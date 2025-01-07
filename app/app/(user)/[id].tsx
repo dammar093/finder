@@ -1,4 +1,11 @@
-import { View, Text, ScrollView, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Image,
+  StatusBar,
+} from "react-native";
 import React from "react";
 import { useLocalSearchParams } from "expo-router";
 import color from "@/constants/Colors";
@@ -254,6 +261,7 @@ const User = () => {
           ))}
         </View>
       </View>
+      <StatusBar barStyle="dark-content" />
     </ScrollView>
   );
 };
