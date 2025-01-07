@@ -9,10 +9,48 @@ import Fontisto from "@expo/vector-icons/Fontisto";
 import iconsizes from "@/constants/IconSizes";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Entypo from "@expo/vector-icons/Entypo";
+import ReviewCard from "@/components/reviewCard/ReviewCard";
+export interface ReviewsProps {
+  id: string;
+  review: string;
+  fullname: string;
+  profile: string;
+  date: Date;
+}
 
+const reviews: ReviewsProps[] = [
+  {
+    id: "1",
+    fullname: "John Doe",
+    profile:
+      "https://static.vecteezy.com/system/resources/previews/001/840/612/non_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg",
+    review:
+      "I returned to Ba Hao Residence after staying in the same room in 2017, and it was just as wonderful as I remembered. This place truly heals my soul, and I’m so happy to be back. Bua and Note are amazing, wonderful people, and every detail of the space reflects their care and passion. Highly recommend!",
+    date: new Date(new Date().getDate()),
+  },
+  {
+    id: "2",
+    fullname: "John Doe",
+    profile:
+      "https://static.vecteezy.com/system/resources/previews/001/840/612/non_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg",
+    review:
+      "I returned to Ba Hao Residence after staying in the same room in 2017, and it was just as wonderful as I remembered. This place truly heals my soul, and I’m so happy to be back. Bua and Note are amazing, wonderful people, and every detail of the space reflects their care and passion. Highly recommend!",
+    date: new Date(new Date().getDate()),
+  },
+  {
+    id: "3",
+    fullname: "John Doe",
+    profile:
+      "https://static.vecteezy.com/system/resources/previews/001/840/612/non_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg",
+    review:
+      "I returned to Ba Hao Residence after staying in the same room in 2017, and it was just as wonderful as I remembered. This place truly heals my soul, and I’m so happy to be back. Bua and Note are amazing, wonderful people, and every detail of the space reflects their care and passion. Highly recommend!",
+    date: new Date(new Date().getDate()),
+  },
+];
 const User = () => {
   const { id } = useLocalSearchParams();
   const post = posts.find((post) => post?.user?.id == id);
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -160,11 +198,44 @@ const User = () => {
           <Text
             style={{ fontSize: fontsizes.paragraph, fontWeight: "semibold" }}
           >
-            Nepali and English
+            {post?.location}
           </Text>
         </View>
       </View>
       <Devider />
+      <View style={{ marginVertical: 20 }}>
+        <Text
+          style={{
+            fontSize: fontsizes.subTitle,
+            fontWeight: "semibold",
+            color: color.balck,
+          }}
+        >
+          {post?.user?.fullName?.split(" ")[0]}'s reviews
+        </Text>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            flexDirection: "row",
+            gap: 10,
+            padding: 10,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {reviews.map(({ id, review, fullname, profile, date }) => (
+            <ReviewCard
+              key={id}
+              id={id}
+              review={review}
+              fullname={fullname}
+              profile={profile}
+              date={date}
+            />
+          ))}
+        </ScrollView>
+      </View>
     </ScrollView>
   );
 };
