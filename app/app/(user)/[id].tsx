@@ -10,6 +10,7 @@ import iconsizes from "@/constants/IconSizes";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Entypo from "@expo/vector-icons/Entypo";
 import ReviewCard from "@/components/reviewCard/ReviewCard";
+import PostCard from "@/components/postCard/PostCard";
 export interface ReviewsProps {
   id: string;
   review: string;
@@ -54,7 +55,6 @@ const User = () => {
   return (
     <ScrollView
       contentContainerStyle={{
-        flex: 1,
         backgroundColor: color.white,
         paddingHorizontal: 10,
       }}
@@ -218,7 +218,8 @@ const User = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
             flexDirection: "row",
-            gap: 10,
+            marginVertical: 20,
+            gap: 20,
             padding: 10,
             justifyContent: "center",
             alignItems: "center",
@@ -236,6 +237,24 @@ const User = () => {
           ))}
         </ScrollView>
       </View>
+      <Devider />
+      <View style={{ marginVertical: 20 }}>
+        <Text
+          style={{
+            fontSize: fontsizes.subTitle,
+            fontWeight: "semibold",
+            color: color.balck,
+          }}
+        >
+          {post?.user?.fullName?.split(" ")[0]}'s available assets
+        </Text>
+
+        <View style={{ flex: 1, position: "relative" }}>
+          {posts.map((post) => (
+            <PostCard key={post?.id} {...post} />
+          ))}
+        </View>
+      </View>
     </ScrollView>
   );
 };
@@ -246,15 +265,18 @@ const styles = StyleSheet.create({
   boxContainer: {
     width: "100%",
     height: 250,
-    elevation: 1,
-    borderRadius: 20,
     marginTop: 10,
     shadowColor: "#000",
-    shadowOffset: { width: 4, height: 4 },
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
     shadowOpacity: 0.25,
-    shadowRadius: 10,
+    shadowRadius: 3.84,
+    elevation: 2,
     boxShadow:
-      "-2px -2px 6px 4px rgba(0,0,0,0.1), 2px 2px 6px 4px rgba(0,0,0,0.1)",
+      "-1px -1px 2px 2px rgba(0,0,0,0.1), 1px 1px 2px 2px rgba(0,0,0,0.1)",
+    borderRadius: 10,
     flexDirection: "row",
   },
 });
