@@ -248,7 +248,6 @@ const User = () => {
         >
           {post?.user?.fullName?.split(" ")[0]}'s available assets
         </Text>
-
         <View style={{ flex: 1, position: "relative" }}>
           {posts.map((post) => (
             <PostCard key={post?.id} {...post} />
