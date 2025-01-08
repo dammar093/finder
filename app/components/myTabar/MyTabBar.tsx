@@ -115,7 +115,7 @@ function MyTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
                 fontWeight: "semibold",
               }}
             >
-              {label === "index" ? "Home" : label}
+              {label === "index" ? "Explore" : label}
             </Text>
           </PlatformPressable>
         );
