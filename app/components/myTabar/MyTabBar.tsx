@@ -35,7 +35,9 @@ function MyTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   }, []);
 
   const icons: { [key: string]: JSX.Element } = {
-    index: <Feather name="home" size={iconsizes.lg} color={color.lightBlack} />,
+    index: (
+      <Feather name="search" size={iconsizes.lg} color={color.lightBlack} />
+    ),
     wishlist: (
       <FontAwesome6 name="heart" size={iconsizes.lg} color={color.lightBlack} />
     ),
