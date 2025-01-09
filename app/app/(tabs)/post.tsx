@@ -18,6 +18,7 @@ import * as Location from "expo-location";
 import CustomInput from "@/components/custiomInput/CustomInput";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import iconsizes from "@/constants/IconSizes";
+import CustomButton from "@/components/customButton/CustomButton";
 
 const Post = () => {
   const [images, setImages] = useState<string[]>([]);
@@ -107,7 +108,9 @@ const Post = () => {
       services: newServices,
     }));
   };
-
+  const handleSumbit = () => {
+    console.log(formValues);
+  };
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -168,7 +171,7 @@ const Post = () => {
                     }))
                   }
                   placeholder="Enter price"
-                  value={formValues?.price?.toString()}
+                  value={formValues?.price}
                   secureTextEntry={false}
                   type="number-pad"
                 />
@@ -206,9 +209,14 @@ const Post = () => {
               </View>
               <View>
                 <CustomInput
-                  onChangeText={() => {}}
+                  onChangeText={(value) => {
+                    setFormValues((prev) => ({
+                      ...prev,
+                      location: value,
+                    }));
+                  }}
                   placeholder="Enter address"
-                  value={formValues?.description}
+                  value={formValues?.location}
                 />
               </View>
               <View>
@@ -224,7 +232,11 @@ const Post = () => {
                   placeholderTextColor={color.lightBlack}
                   value={formValues?.description}
                   multiline
+                  numberOfLines={6}
                 />
+              </View>
+              <View>
+                <CustomButton title="Add Properties" onPress={handleSumbit} />
               </View>
             </View>
           </View>
@@ -312,10 +324,12 @@ const styles = StyleSheet.create({
     borderRadius: "50%",
   },
   description: {
-    minHeight: 300,
     backgroundColor: "#F0F2F5",
     borderRadius: 10,
     paddingHorizontal: 20,
+    width: "100%",
+    height: 300,
+    textAlignVertical: "top",
   },
 });
 

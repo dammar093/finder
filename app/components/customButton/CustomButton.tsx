@@ -32,7 +32,7 @@ const CustomButton: FC<buttonProps> = ({
       disabled={loading}
     >
       {loading ? (
-        <ActivityIndicator color={color.balck} size={30} />
+        <ActivityIndicator color={color.white} size={30} />
       ) : (
         <Text style={[textStyle, styles.title]}>{title}</Text>
       )}
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 10,
     alignItems: "center",
-    backgroundColor: color.lightGreen,
+    backgroundColor: color.primary,
     borderRadius: 10,
     height: 60,
     flexDirection: "row",
@@ -57,6 +57,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: fontsizes.button,
     fontWeight: "900",
-    color: color.lightBlack,
+    color: color.white,
   },
 });
