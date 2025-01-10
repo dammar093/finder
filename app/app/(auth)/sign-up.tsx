@@ -156,8 +156,7 @@ const SignUp = () => {
           });
         })
         .catch((err) => {
-          console.log(err.message);
-          setError(err.message);
+          setError(err?.response?.data?.message);
         })
         .finally(() => setLoading(false));
     }

@@ -43,7 +43,7 @@ const VerifyOtp = () => {
           });
         })
         .catch((err) => {
-          setError("Request failed please try again");
+          setError(err?.response?.data?.message);
         })
         .finally(() => setLoading(false));
     }

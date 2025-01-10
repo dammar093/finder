@@ -86,7 +86,7 @@ const SignIn = () => {
           });
         })
         .catch((err) => {
-          setError(err.message);
+          setError(err?.response?.data?.message);
         })
         .finally(() => setLoading(false));
     }
